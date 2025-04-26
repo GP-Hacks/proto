@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "github.com/AuthService/pkg/api/v1;v1";
+
+service CharityService {
+  rpc GetCollections(GetCollectionsRequest) returns (GetCollectionsResponse);
+  rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse);
+  rpc Donate(DonateRequest) returns (DonateResponse);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message GetCollectionsRequest { string category = 1; }
+
+message GetCollectionsResponse { repeated Collection response = 1; }
+
+message Collection {
+  int32 id = 1;
+  string category = 2;
+  string name = 3;
+  string description = 4;
+  string organization = 5;
+  string phone = 6;
+  string website = 7;
+  int32 goal = 8;
+  int32 current = 9;
+  string photo = 10;
+}
+
+message DonateRequest {
+  string token = 1;
+  int32 collection_id = 2;
+  int32 amount = 3;
+}
+
+message DonateResponse { string response = 1; }
+
+message GetCategoriesRequest {}
+
+message GetCategoriesResponse { repeated string categories = 1; }
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse { bool is_healthy = 1; }

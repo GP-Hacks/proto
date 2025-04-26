@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package api;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/AuthService/pkg/api/v1;v1";
+
+service PlacesService {
+  rpc GetPlaces(GetPlacesRequest) returns (GetPlacesResponse);
+  rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse);
+  rpc BuyTicket(BuyTicketRequest) returns (BuyTicketResponse);
+  rpc GetTickets(GetTicketsRequest) returns (GetTicketsResponse);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message GetTicketsRequest { string token = 1; }
+
+message GetTicketsResponse { repeated Ticket response = 1; }
+
+message Ticket {
+  int32 id = 1;
+  string name = 2;
+  string location = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message GetPlacesRequest {
+  double latitude = 1;
+  double longitude = 2;
+  string category = 3;
+}
+
+message GetPlacesResponse { repeated Place response = 1; }
+
+message Place {
+  int32 id = 1;
+  string category = 2;
+  string description = 3;
+  double latitude = 4;
+  double longitude = 5;
+  string location = 6;
+  string name = 7;
+  string tel = 8;
+  string website = 9;
+  int32 cost = 10;
+  repeated string times = 11;
+  repeated Photo photos = 12;
+}
+
+message Photo { string url = 1; }
+
+message GetCategoriesRequest {}
+
+message GetCategoriesResponse { repeated string categories = 1; }
+
+message BuyTicketRequest {
+  string token = 1;
+  int32 place_id = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+message BuyTicketResponse { string response = 1; }
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse { bool is_healthy = 1; }

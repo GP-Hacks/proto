@@ -8,7 +8,6 @@ package v1
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -21,7 +20,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Notifications_AddUserToken_FullMethodName = "/v1.Notifications/AddUserToken"
+	Notifications_AddUserToken_FullMethodName = "/api.Notifications/AddUserToken"
 )
 
 // NotificationsClient is the client API for Notifications service.
@@ -110,7 +109,7 @@ func _Notifications_AddUserToken_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Notifications_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v1.Notifications",
+	ServiceName: "api.Notifications",
 	HandlerType: (*NotificationsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

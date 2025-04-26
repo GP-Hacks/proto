@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+option go_package = "github.com/GP-Hacks/commons/api/proto";
+
+package v1;
+
+service ChatService {
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message SendMessageRequest { repeated Message messages = 1; }
+
+message Message {
+  string role = 1;
+  string content = 2;
+}
+
+message SendMessageResponse { string response = 1; }
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse { bool is_healthy = 1; }
