@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/AuthService/pkg/api/v1;v1";
+
+service Notifications {
+  rpc AddUserToken(AddUserTokenRequest) returns (google.protobuf.Empty);
+}
+
+message AddUserTokenRequest {
+  string userId = 1;
+  string token = 2;
+}
