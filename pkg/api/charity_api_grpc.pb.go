@@ -4,7 +4,7 @@
 // - protoc             v5.28.2
 // source: api/charity_api.proto
 
-package v1
+package api
 
 import (
 	context "context"

@@ -3,8 +3,7 @@ syntax = "proto3";
 package api;
 
 import "google/protobuf/timestamp.proto";
-
-option go_package = "github.com/AuthService/pkg/api/v1;v1";
+option go_package = "github.com/GP-Hacks/proto/pkg/api";
 
 service VotesService {
   rpc GetVotes(GetVotesRequest) returns (GetVotesResponse);

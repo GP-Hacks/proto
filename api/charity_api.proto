@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api;
 
-option go_package = "github.com/AuthService/pkg/api/v1;v1";
+option go_package = "github.com/GP-Hacks/proto/pkg/api";
 
 service CharityService {
   rpc GetCollections(GetCollectionsRequest) returns (GetCollectionsResponse);
