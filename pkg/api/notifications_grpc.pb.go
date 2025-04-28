@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.28.2
-// source: api/notifications_api.proto
+// source: api/notifications.proto
 
-package api
+package notifications
 
 import (
 	context "context"
@@ -20,7 +20,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Notifications_AddUserToken_FullMethodName = "/api.Notifications/AddUserToken"
+	Notifications_AddUserToken_FullMethodName = "/notifications.Notifications/AddUserToken"
 )
 
 // NotificationsClient is the client API for Notifications service.
@@ -109,7 +109,7 @@ func _Notifications_AddUserToken_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Notifications_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.Notifications",
+	ServiceName: "notifications.Notifications",
 	HandlerType: (*NotificationsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -118,5 +118,5 @@ var Notifications_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/notifications_api.proto",
+	Metadata: "api/notifications.proto",
 }

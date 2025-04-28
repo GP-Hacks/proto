@@ -1,9 +1,9 @@
 syntax = "proto3";
-
-package api;
+package notifications;
 
 import "google/protobuf/empty.proto";
-option go_package = "github.com/GP-Hacks/proto/pkg/api";
+
+option go_package = "github.com/GP-Hacks/proto/pkg/api/notifications";
 
 service Notifications {
   rpc AddUserToken(AddUserTokenRequest) returns (google.protobuf.Empty);

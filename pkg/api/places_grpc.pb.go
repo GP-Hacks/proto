@@ -2,12 +2,13 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.28.2
-// source: api/places_api.proto
+// source: api/places.proto
 
-package api
+package places
 
 import (
 	context "context"
+	common "github.com/GP-Hacks/proto/pkg/api/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,11 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PlacesService_GetPlaces_FullMethodName     = "/api.PlacesService/GetPlaces"
-	PlacesService_GetCategories_FullMethodName = "/api.PlacesService/GetCategories"
-	PlacesService_BuyTicket_FullMethodName     = "/api.PlacesService/BuyTicket"
-	PlacesService_GetTickets_FullMethodName    = "/api.PlacesService/GetTickets"
-	PlacesService_HealthCheck_FullMethodName   = "/api.PlacesService/HealthCheck"
+	PlacesService_GetPlaces_FullMethodName     = "/places.PlacesService/GetPlaces"
+	PlacesService_GetCategories_FullMethodName = "/places.PlacesService/GetCategories"
+	PlacesService_BuyTicket_FullMethodName     = "/places.PlacesService/BuyTicket"
+	PlacesService_GetTickets_FullMethodName    = "/places.PlacesService/GetTickets"
+	PlacesService_HealthCheck_FullMethodName   = "/places.PlacesService/HealthCheck"
 )
 
 // PlacesServiceClient is the client API for PlacesService service.
@@ -34,7 +35,7 @@ type PlacesServiceClient interface {
 	GetCategories(ctx context.Context, in *GetCategoriesRequest, opts ...grpc.CallOption) (*GetCategoriesResponse, error)
 	BuyTicket(ctx context.Context, in *BuyTicketRequest, opts ...grpc.CallOption) (*BuyTicketResponse, error)
 	GetTickets(ctx context.Context, in *GetTicketsRequest, opts ...grpc.CallOption) (*GetTicketsResponse, error)
-	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	HealthCheck(ctx context.Context, in *common.HealthCheckRequest, opts ...grpc.CallOption) (*common.HealthCheckResponse, error)
 }
 
 type placesServiceClient struct {
@@ -85,9 +86,9 @@ func (c *placesServiceClient) GetTickets(ctx context.Context, in *GetTicketsRequ
 	return out, nil
 }
 
-func (c *placesServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+func (c *placesServiceClient) HealthCheck(ctx context.Context, in *common.HealthCheckRequest, opts ...grpc.CallOption) (*common.HealthCheckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(HealthCheckResponse)
+	out := new(common.HealthCheckResponse)
 	err := c.cc.Invoke(ctx, PlacesService_HealthCheck_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -103,7 +104,7 @@ type PlacesServiceServer interface {
 	GetCategories(context.Context, *GetCategoriesRequest) (*GetCategoriesResponse, error)
 	BuyTicket(context.Context, *BuyTicketRequest) (*BuyTicketResponse, error)
 	GetTickets(context.Context, *GetTicketsRequest) (*GetTicketsResponse, error)
-	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	HealthCheck(context.Context, *common.HealthCheckRequest) (*common.HealthCheckResponse, error)
 	mustEmbedUnimplementedPlacesServiceServer()
 }
 
@@ -126,7 +127,7 @@ func (UnimplementedPlacesServiceServer) BuyTicket(context.Context, *BuyTicketReq
 func (UnimplementedPlacesServiceServer) GetTickets(context.Context, *GetTicketsRequest) (*GetTicketsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTickets not implemented")
 }
-func (UnimplementedPlacesServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+func (UnimplementedPlacesServiceServer) HealthCheck(context.Context, *common.HealthCheckRequest) (*common.HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
 func (UnimplementedPlacesServiceServer) mustEmbedUnimplementedPlacesServiceServer() {}
@@ -223,7 +224,7 @@ func _PlacesService_GetTickets_Handler(srv interface{}, ctx context.Context, dec
 }
 
 func _PlacesService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HealthCheckRequest)
+	in := new(common.HealthCheckRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -235,7 +236,7 @@ func _PlacesService_HealthCheck_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: PlacesService_HealthCheck_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlacesServiceServer).HealthCheck(ctx, req.(*HealthCheckRequest))
+		return srv.(PlacesServiceServer).HealthCheck(ctx, req.(*common.HealthCheckRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -244,7 +245,7 @@ func _PlacesService_HealthCheck_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PlacesService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.PlacesService",
+	ServiceName: "places.PlacesService",
 	HandlerType: (*PlacesServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -269,5 +270,5 @@ var PlacesService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/places_api.proto",
+	Metadata: "api/places.proto",
 }

@@ -1,14 +1,16 @@
 syntax = "proto3";
+package charity;
 
-package api;
+import "api/common.proto";
 
-option go_package = "github.com/GP-Hacks/proto/pkg/api";
+option go_package = "github.com/GP-Hacks/proto/pkg/api/charity";
 
 service CharityService {
   rpc GetCollections(GetCollectionsRequest) returns (GetCollectionsResponse);
   rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse);
   rpc Donate(DonateRequest) returns (DonateResponse);
-  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+  rpc HealthCheck(common.HealthCheckRequest)
+      returns (common.HealthCheckResponse);
 }
 
 message GetCollectionsRequest {
@@ -16,9 +18,7 @@ message GetCollectionsRequest {
   int64 offset = 2;
   int64 limit = 3;
 }
-
 message GetCollectionsResponse { repeated Collection response = 1; }
-
 message Collection {
   int32 id = 1;
   string category = 2;
@@ -31,19 +31,11 @@ message Collection {
   int32 current = 9;
   string photo = 10;
 }
-
 message DonateRequest {
   string token = 1;
   int32 collection_id = 2;
   int32 amount = 3;
 }
-
 message DonateResponse { string response = 1; }
-
 message GetCategoriesRequest {}
-
 message GetCategoriesResponse { repeated string categories = 1; }
-
-message HealthCheckRequest {}
-
-message HealthCheckResponse { bool is_healthy = 1; }
