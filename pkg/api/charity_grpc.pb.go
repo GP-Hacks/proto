@@ -8,7 +8,6 @@ package charity
 
 import (
 	context "context"
-	common "github.com/GP-Hacks/proto/pkg/api/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -33,7 +32,7 @@ type CharityServiceClient interface {
 	GetCollections(ctx context.Context, in *GetCollectionsRequest, opts ...grpc.CallOption) (*GetCollectionsResponse, error)
 	GetCategories(ctx context.Context, in *GetCategoriesRequest, opts ...grpc.CallOption) (*GetCategoriesResponse, error)
 	Donate(ctx context.Context, in *DonateRequest, opts ...grpc.CallOption) (*DonateResponse, error)
-	HealthCheck(ctx context.Context, in *common.HealthCheckRequest, opts ...grpc.CallOption) (*common.HealthCheckResponse, error)
+	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
 
 type charityServiceClient struct {
@@ -74,9 +73,9 @@ func (c *charityServiceClient) Donate(ctx context.Context, in *DonateRequest, op
 	return out, nil
 }
 
-func (c *charityServiceClient) HealthCheck(ctx context.Context, in *common.HealthCheckRequest, opts ...grpc.CallOption) (*common.HealthCheckResponse, error) {
+func (c *charityServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.HealthCheckResponse)
+	out := new(HealthCheckResponse)
 	err := c.cc.Invoke(ctx, CharityService_HealthCheck_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -91,7 +90,7 @@ type CharityServiceServer interface {
 	GetCollections(context.Context, *GetCollectionsRequest) (*GetCollectionsResponse, error)
 	GetCategories(context.Context, *GetCategoriesRequest) (*GetCategoriesResponse, error)
 	Donate(context.Context, *DonateRequest) (*DonateResponse, error)
-	HealthCheck(context.Context, *common.HealthCheckRequest) (*common.HealthCheckResponse, error)
+	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	mustEmbedUnimplementedCharityServiceServer()
 }
 
@@ -111,7 +110,7 @@ func (UnimplementedCharityServiceServer) GetCategories(context.Context, *GetCate
 func (UnimplementedCharityServiceServer) Donate(context.Context, *DonateRequest) (*DonateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Donate not implemented")
 }
-func (UnimplementedCharityServiceServer) HealthCheck(context.Context, *common.HealthCheckRequest) (*common.HealthCheckResponse, error) {
+func (UnimplementedCharityServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
 func (UnimplementedCharityServiceServer) mustEmbedUnimplementedCharityServiceServer() {}
@@ -190,7 +189,7 @@ func _CharityService_Donate_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 func _CharityService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.HealthCheckRequest)
+	in := new(HealthCheckRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -202,7 +201,7 @@ func _CharityService_HealthCheck_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: CharityService_HealthCheck_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CharityServiceServer).HealthCheck(ctx, req.(*common.HealthCheckRequest))
+		return srv.(CharityServiceServer).HealthCheck(ctx, req.(*HealthCheckRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

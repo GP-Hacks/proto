@@ -1,7 +1,0 @@
-syntax = "proto3";
-package common;
-
-option go_package = "github.com/GP-Hacks/proto/pkg/api/common";
-
-message HealthCheckRequest {}
-message HealthCheckResponse { bool is_healthy = 1; }

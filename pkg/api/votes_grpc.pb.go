@@ -8,7 +8,6 @@ package votes
 
 import (
 	context "context"
-	common "github.com/GP-Hacks/proto/pkg/api/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -43,7 +42,7 @@ type VotesServiceClient interface {
 	VoteRate(ctx context.Context, in *VoteRateRequest, opts ...grpc.CallOption) (*VoteResponse, error)
 	VotePetition(ctx context.Context, in *VotePetitionRequest, opts ...grpc.CallOption) (*VoteResponse, error)
 	VoteChoice(ctx context.Context, in *VoteChoiceRequest, opts ...grpc.CallOption) (*VoteResponse, error)
-	HealthCheck(ctx context.Context, in *common.HealthCheckRequest, opts ...grpc.CallOption) (*common.HealthCheckResponse, error)
+	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
 
 type votesServiceClient struct {
@@ -134,9 +133,9 @@ func (c *votesServiceClient) VoteChoice(ctx context.Context, in *VoteChoiceReque
 	return out, nil
 }
 
-func (c *votesServiceClient) HealthCheck(ctx context.Context, in *common.HealthCheckRequest, opts ...grpc.CallOption) (*common.HealthCheckResponse, error) {
+func (c *votesServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.HealthCheckResponse)
+	out := new(HealthCheckResponse)
 	err := c.cc.Invoke(ctx, VotesService_HealthCheck_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -156,7 +155,7 @@ type VotesServiceServer interface {
 	VoteRate(context.Context, *VoteRateRequest) (*VoteResponse, error)
 	VotePetition(context.Context, *VotePetitionRequest) (*VoteResponse, error)
 	VoteChoice(context.Context, *VoteChoiceRequest) (*VoteResponse, error)
-	HealthCheck(context.Context, *common.HealthCheckRequest) (*common.HealthCheckResponse, error)
+	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	mustEmbedUnimplementedVotesServiceServer()
 }
 
@@ -191,7 +190,7 @@ func (UnimplementedVotesServiceServer) VotePetition(context.Context, *VotePetiti
 func (UnimplementedVotesServiceServer) VoteChoice(context.Context, *VoteChoiceRequest) (*VoteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VoteChoice not implemented")
 }
-func (UnimplementedVotesServiceServer) HealthCheck(context.Context, *common.HealthCheckRequest) (*common.HealthCheckResponse, error) {
+func (UnimplementedVotesServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
 func (UnimplementedVotesServiceServer) mustEmbedUnimplementedVotesServiceServer() {}
@@ -360,7 +359,7 @@ func _VotesService_VoteChoice_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _VotesService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.HealthCheckRequest)
+	in := new(HealthCheckRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -372,7 +371,7 @@ func _VotesService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: VotesService_HealthCheck_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(VotesServiceServer).HealthCheck(ctx, req.(*common.HealthCheckRequest))
+		return srv.(VotesServiceServer).HealthCheck(ctx, req.(*HealthCheckRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

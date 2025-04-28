@@ -1,16 +1,13 @@
 syntax = "proto3";
 package charity;
 
-import "api/common.proto";
-
 option go_package = "github.com/GP-Hacks/proto/pkg/api/charity";
 
 service CharityService {
   rpc GetCollections(GetCollectionsRequest) returns (GetCollectionsResponse);
   rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse);
   rpc Donate(DonateRequest) returns (DonateResponse);
-  rpc HealthCheck(common.HealthCheckRequest)
-      returns (common.HealthCheckResponse);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
 }
 
 message GetCollectionsRequest {
@@ -39,3 +36,6 @@ message DonateRequest {
 message DonateResponse { string response = 1; }
 message GetCategoriesRequest {}
 message GetCategoriesResponse { repeated string categories = 1; }
+
+message HealthCheckRequest {}
+message HealthCheckResponse { bool is_healthy = 1; }

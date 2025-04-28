@@ -2,7 +2,6 @@ syntax = "proto3";
 package votes;
 
 import "google/protobuf/timestamp.proto";
-import "api/common.proto";
 
 option go_package = "github.com/GP-Hacks/proto/pkg/api/votes";
 
@@ -15,8 +14,7 @@ service VotesService {
   rpc VoteRate(VoteRateRequest) returns (VoteResponse);
   rpc VotePetition(VotePetitionRequest) returns (VoteResponse);
   rpc VoteChoice(VoteChoiceRequest) returns (VoteResponse);
-  rpc HealthCheck(common.HealthCheckRequest)
-      returns (common.HealthCheckResponse);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
 }
 
 message GetVotesRequest { string category = 1; }
@@ -92,3 +90,6 @@ message VoteChoiceRequest {
 message VoteResponse { string response = 1; }
 message GetCategoriesRequest {}
 message GetCategoriesResponse { repeated string categories = 1; }
+
+message HealthCheckRequest {}
+message HealthCheckResponse { bool is_healthy = 1; }

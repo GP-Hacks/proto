@@ -2,7 +2,6 @@ syntax = "proto3";
 package places;
 
 import "google/protobuf/timestamp.proto";
-import "api/common.proto";
 
 option go_package = "github.com/GP-Hacks/proto/pkg/api/places";
 
@@ -11,8 +10,7 @@ service PlacesService {
   rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse);
   rpc BuyTicket(BuyTicketRequest) returns (BuyTicketResponse);
   rpc GetTickets(GetTicketsRequest) returns (GetTicketsResponse);
-  rpc HealthCheck(common.HealthCheckRequest)
-      returns (common.HealthCheckResponse);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
 }
 
 message GetTicketsRequest { string token = 1; }
@@ -52,3 +50,6 @@ message BuyTicketRequest {
   google.protobuf.Timestamp timestamp = 3;
 }
 message BuyTicketResponse { string response = 1; }
+
+message HealthCheckRequest {}
+message HealthCheckResponse { bool is_healthy = 1; }

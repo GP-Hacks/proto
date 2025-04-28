@@ -8,7 +8,6 @@ package chat
 
 import (
 	context "context"
-	common "github.com/GP-Hacks/proto/pkg/api/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -29,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ChatServiceClient interface {
 	SendMessage(ctx context.Context, in *SendMessageRequest, opts ...grpc.CallOption) (*SendMessageResponse, error)
-	HealthCheck(ctx context.Context, in *common.HealthCheckRequest, opts ...grpc.CallOption) (*common.HealthCheckResponse, error)
+	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
 
 type chatServiceClient struct {
@@ -50,9 +49,9 @@ func (c *chatServiceClient) SendMessage(ctx context.Context, in *SendMessageRequ
 	return out, nil
 }
 
-func (c *chatServiceClient) HealthCheck(ctx context.Context, in *common.HealthCheckRequest, opts ...grpc.CallOption) (*common.HealthCheckResponse, error) {
+func (c *chatServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(common.HealthCheckResponse)
+	out := new(HealthCheckResponse)
 	err := c.cc.Invoke(ctx, ChatService_HealthCheck_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -65,7 +64,7 @@ func (c *chatServiceClient) HealthCheck(ctx context.Context, in *common.HealthCh
 // for forward compatibility.
 type ChatServiceServer interface {
 	SendMessage(context.Context, *SendMessageRequest) (*SendMessageResponse, error)
-	HealthCheck(context.Context, *common.HealthCheckRequest) (*common.HealthCheckResponse, error)
+	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 	mustEmbedUnimplementedChatServiceServer()
 }
 
@@ -79,7 +78,7 @@ type UnimplementedChatServiceServer struct{}
 func (UnimplementedChatServiceServer) SendMessage(context.Context, *SendMessageRequest) (*SendMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendMessage not implemented")
 }
-func (UnimplementedChatServiceServer) HealthCheck(context.Context, *common.HealthCheckRequest) (*common.HealthCheckResponse, error) {
+func (UnimplementedChatServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
 func (UnimplementedChatServiceServer) mustEmbedUnimplementedChatServiceServer() {}
@@ -122,7 +121,7 @@ func _ChatService_SendMessage_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _ChatService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.HealthCheckRequest)
+	in := new(HealthCheckRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -134,7 +133,7 @@ func _ChatService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: ChatService_HealthCheck_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatServiceServer).HealthCheck(ctx, req.(*common.HealthCheckRequest))
+		return srv.(ChatServiceServer).HealthCheck(ctx, req.(*HealthCheckRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
