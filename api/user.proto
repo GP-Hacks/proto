@@ -1,12 +1,12 @@
 syntax = "proto3";
-package proto;
+package user;
 
 import "google/protobuf/empty.proto";
 
 option go_package = "github.com/GP-Hacks/proto/pkg/api/user";
 
 service UserService {
-  rpc SignUp(SignUpRequest) returns (google.protobuf.Empty);
+  rpc Create(CreateRequest) returns (google.protobuf.Empty);
   //  rpc GetById() returns ();
   //  rpc Update() returns ();
   //  rpc Delete() returns ();
@@ -19,7 +19,7 @@ message User {
   int32 status = 4;
 }
 
-message SignUpRequest { User user = 1; }
+message CreateRequest { User user = 1; }
 
 message DeleteRequest { int64 id = 1; }
 

@@ -1,7 +1,8 @@
 syntax = "proto3";
-package proto;
+package auth;
 
 import "google/protobuf/empty.proto";
+import "api/user.proto";
 
 option go_package = "github.com/GP-Hacks/proto/pkg/api/auth";
 
@@ -34,7 +35,10 @@ message Tokens {
   string refresh = 2;
 }
 
-message SignUpRequest { Credentials credentials = 1; }
+message SignUpRequest {
+  Credentials credentials = 1;
+  user.User user = 2;
+}
 
 message SignInRequest { Credentials credentials = 1; }
 

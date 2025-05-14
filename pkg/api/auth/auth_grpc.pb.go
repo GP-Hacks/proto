@@ -20,11 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AuthService_SignUp_FullMethodName            = "/proto.AuthService/SignUp"
-	AuthService_SignIn_FullMethodName            = "/proto.AuthService/SignIn"
-	AuthService_VerifyAccessToken_FullMethodName = "/proto.AuthService/VerifyAccessToken"
-	AuthService_RefreshTokens_FullMethodName     = "/proto.AuthService/RefreshTokens"
-	AuthService_Logout_FullMethodName            = "/proto.AuthService/Logout"
+	AuthService_SignUp_FullMethodName            = "/auth.AuthService/SignUp"
+	AuthService_SignIn_FullMethodName            = "/auth.AuthService/SignIn"
+	AuthService_VerifyAccessToken_FullMethodName = "/auth.AuthService/VerifyAccessToken"
+	AuthService_RefreshTokens_FullMethodName     = "/auth.AuthService/RefreshTokens"
+	AuthService_Logout_FullMethodName            = "/auth.AuthService/Logout"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -245,7 +245,7 @@ func _AuthService_Logout_Handler(srv interface{}, ctx context.Context, dec func(
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AuthService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.AuthService",
+	ServiceName: "auth.AuthService",
 	HandlerType: (*AuthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
