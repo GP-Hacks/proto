@@ -7,18 +7,10 @@ option go_package = "github.com/GP-Hacks/proto/pkg/api/user";
 
 service UserService {
   rpc SignUp(SignUpRequest) returns (google.protobuf.Empty);
-  rpc GetById() returns ();
-  rpc Update() returns ();
-  rpc Delete() returns ();
+  //  rpc GetById() returns ();
+  //  rpc Update() returns ();
+  //  rpc Delete() returns ();
 }
-
-message RefreshTokensRequest { string refreshToken = 1; }
-
-message RefreshTokensResponse { Tokens tokens = 1; }
-
-message VerifyAccessTokenRequest { string access = 1; }
-
-message VerifyAccessTokenResponse { int64 user_id = 1; }
 
 message User {
   int64 id = 1;
