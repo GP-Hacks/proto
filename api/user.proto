@@ -19,7 +19,10 @@ enum UserStatus {
   DEFAULT = 1;
 }
 
-message UploadAvatarRequest { bytes photo = 1; }
+message UploadAvatarRequest {
+  bytes photo = 1;
+  string token = 2;
+}
 
 message UploadAvatarResponse { string url = 1; }
 
