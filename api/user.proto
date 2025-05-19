@@ -8,6 +8,7 @@ option go_package = "github.com/GP-Hacks/proto/pkg/api/user";
 
 service UserService {
   rpc Create(CreateRequest) returns (google.protobuf.Empty);
+  rpc UploadAvatar(UploadAvatarRequest) returns (UploadAvatarResponse);
   //  rpc GetById() returns ();
   //  rpc Update() returns ();
   //  rpc Delete() returns ();
@@ -17,6 +18,10 @@ enum UserStatus {
   ADMIN = 0;
   DEFAULT = 1;
 }
+
+message UploadAvatarRequest { bytes photo = 1; }
+
+message UploadAvatarResponse { string url = 1; }
 
 message User {
   int64 id = 1;
