@@ -49,4 +49,6 @@ message User {
   google.protobuf.Timestamp date_of_birth = 6;
 }
 
-message CreateRequest { User user = 1; }
+message CreateRequest { 
+int64 id = 1;
+User user = 2; }
