@@ -9,9 +9,18 @@ option go_package = "github.com/GP-Hacks/proto/pkg/api/user";
 service UserService {
   rpc Create(CreateRequest) returns (google.protobuf.Empty);
   rpc UploadAvatar(UploadAvatarRequest) returns (UploadAvatarResponse);
-  //  rpc GetById() returns ();
-  //  rpc Update() returns ();
-  //  rpc Delete() returns ();
+  rpc GetMe(GetMeRequest) returns (User);
+  rpc Update(UpdateUserRequest) returns (google.protobuf.Empty);
+  rpc Delete(DeleteRequest) returns (google.protobuf.Empty);
+}
+
+message GetMeRequest { string token = 1; }
+
+message DeleteRequest { string token = 1; }
+
+message UpdateUserRequest {
+  string token = 1;
+  User user = 2;
 }
 
 enum UserStatus {
@@ -37,7 +46,3 @@ message User {
 }
 
 message CreateRequest { User user = 1; }
-
-message DeleteRequest { int64 id = 1; }
-
-message UpdateRequest { string username = 1; }
