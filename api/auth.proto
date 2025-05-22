@@ -13,6 +13,11 @@ service AuthService {
       returns (VerifyAccessTokenResponse);
   rpc RefreshTokens(RefreshTokensRequest) returns (RefreshTokensResponse);
   rpc Logout(LogoutRequest) returns (google.protobuf.Empty);
+  rpc ConfirmEmail(ConfirmEmailRequest) returns (google.protobuf.Empty);
+}
+
+message ConfirmEmailRequest {
+	string token = 1;
 }
 
 message LogoutRequest { Tokens tokens = 1; }
