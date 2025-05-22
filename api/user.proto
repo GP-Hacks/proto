@@ -19,6 +19,7 @@ message GetMeRequest { string token = 1; }
 message GetMeResponse {
 	User user = 1;
 	string AvatarURL = 2;
+	UserStatus status = 3;
 }
 
 message DeleteRequest { string token = 1; }
