@@ -2,7 +2,7 @@ syntax = "proto3";
 package auth;
 
 import "google/protobuf/empty.proto";
-import "api/user.proto";
+import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/GP-Hacks/proto/pkg/api/auth";
 
@@ -25,21 +25,23 @@ message VerifyAccessTokenRequest { string access = 1; }
 
 message VerifyAccessTokenResponse { int64 user_id = 1; }
 
-message Credentials {
-  string email = 1;
-  string password = 2;
-}
-
 message Tokens {
   string access = 1;
   string refresh = 2;
 }
 
-message SignUpRequest {
-  Credentials credentials = 1;
-  user.User user = 2;
+message SignUpRequest { 
+	string email = 1;
+	string password = 2;
+	string first_name = 3;
+	string last_name = 4;
+	string surname = 5;
+	google.protobuf.Timestamp date_of_birth = 6;
 }
 
-message SignInRequest { Credentials credentials = 1; }
+message SignInRequest { 
+	string email = 1;
+	string password = 2;
+}
 
 message SignInResponse { Tokens tokens = 1; }

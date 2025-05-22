@@ -9,12 +9,17 @@ option go_package = "github.com/GP-Hacks/proto/pkg/api/user";
 service UserService {
   rpc Create(CreateRequest) returns (google.protobuf.Empty);
   rpc UploadAvatar(UploadAvatarRequest) returns (UploadAvatarResponse);
-  rpc GetMe(GetMeRequest) returns (User);
+  rpc GetMe(GetMeRequest) returns (GetMeResponse);
   rpc Update(UpdateUserRequest) returns (google.protobuf.Empty);
   rpc Delete(DeleteRequest) returns (google.protobuf.Empty);
 }
 
 message GetMeRequest { string token = 1; }
+
+message GetMeResponse {
+	User user = 1;
+	string AvatarURL = 2;
+}
 
 message DeleteRequest { string token = 1; }
 
@@ -36,13 +41,11 @@ message UploadAvatarRequest {
 message UploadAvatarResponse { string url = 1; }
 
 message User {
-  int64 id = 1;
   string email = 2;
   string first_name = 3;
   string last_name = 4;
   string surname = 5;
   google.protobuf.Timestamp date_of_birth = 6;
-  UserStatus status = 7;
 }
 
 message CreateRequest { User user = 1; }
