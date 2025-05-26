@@ -6,34 +6,26 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/GP-Hacks/proto/pkg/api/chat";
 
 service ChatService {
-	rpc GetAnswer(GetAnswerRequest) returns (GetAnswerResponse);
-	rpc GetChat(GetChatRequest) returns (GetChatResponse);
+	rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse);
 }
 
-message GetChatRequest {
+message GetHistoryRequest {
 	string token = 1;
+	int64 limit = 2;
+	int64 offset = 3;
 }
 
-message GetAnswerRequest {
-	string token = 1;
-	string question = 2;
+enum ChatRole {
+	USER = 0;
+	BOT = 1;
 }
 
-message GetAnswerResponse {
-	string answer = 3;
-}
-
-enum MessageSender {
-	User = 0;
-	Bot = 1;
-}
-
-message Message {
-	MessageSender sender = 1;
-	string content = 2;
+message ChatMessage {
+	string content = 1;
+	ChatRole role = 2;
 	google.protobuf.Timestamp created_at = 3;
 }
 
-message GetChatResponse {
-	repeated Message messages = 1;	
+message GetHistoryResponse {
+	repeated ChatMessage messages = 1;
 }
